@@ -6,8 +6,8 @@ import { Login } from "../pages/Login";
 export function AllRoutes() {
   return (
     <Routes>
+      <Route path="/" element={<Login />} />
       <Route path="/home" element={<Home />} />
-      <Route path="/login" element={<Login />} />
       <Route path="/cadaster" element={<Cadaster />} />
     </Routes>
   );

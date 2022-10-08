@@ -39,9 +39,11 @@ export const Forms = styled.form`
     border: 1px solid #514d4c;
     background-color: #1b1d1e;
   }
+
   input::placeholder {
     color: #514d4c;
   }
+
   select {
     min-width: 90%;
     height: 30px;
@@ -49,5 +51,17 @@ export const Forms = styled.form`
     border-radius: 8px;
     background-color: #1b1d1e;
     color: #ffffff;
+  }
+
+  a {
+    text-decoration: none;
+    text-align: center;
+    width: 90%;
+    height: 30px;
+    margin: 0 auto;
+    border-radius: 8px;
+    color: #c6c8d2;
+    border: 1px solid #514d4c;
+    background-color: #1b1d1e;
   }
 `;
