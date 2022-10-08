@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Forms } from "../../components/Form/style";
+import { Forms } from "../../styles/Forms";
 import { cadasterSchema } from "./cadasterSchema";
 import { RequestApi } from "../../requests/RequestApi";
 import { useEffect } from "react";

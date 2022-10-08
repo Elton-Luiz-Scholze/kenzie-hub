@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Forms } from "../../components/Form/style";
+import { Forms } from "../../styles/Forms";
 import { loginSchema } from "./loginSchema";
 import { RequestApi } from "../../requests/RequestApi";
 import { Link, useNavigate } from "react-router-dom";
