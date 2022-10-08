@@ -4,11 +4,12 @@ import { Forms } from "../../components/Form/style";
 import { loginSchema } from "./loginSchema";
 import { RequestApi } from "../../requests/RequestApi";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export function Login({ setUser }) {
+  const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("@kenzieHubToken");
   const navigate = useNavigate();
   const {
@@ -27,6 +28,7 @@ export function Login({ setUser }) {
 
   async function onSubmitFunction(data) {
     try {
+      setLoading(true);
       const response = await RequestApi.post("sessions", data);
       localStorage.setItem("@kenzieHubToken", response.data.token);
       localStorage.setItem("@kenzieHubUserId", response.data.user.id);
@@ -38,6 +40,8 @@ export function Login({ setUser }) {
       navigate("/home");
     } catch (error) {
       toast.error("Email ou senha incorretos!!!");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -53,7 +57,9 @@ export function Login({ setUser }) {
       <input id="password" type="password" {...register("password")} />
       <p>{errors.password?.message}</p>
 
-      <button type="submit">Entrar</button>
+      <button type="submit" disabled={loading}>
+        {loading ? "Entrando..." : "Entrar"}
+      </button>
 
       <span>Ainda não possui conta?</span>
       <Link to={"/cadaster"}>Cadastre-se</Link>
