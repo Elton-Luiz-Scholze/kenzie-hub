@@ -6,7 +6,7 @@ export function Home({ user }) {
   function logout() {
     localStorage.removeItem("@kenzieHubToken");
     localStorage.removeItem("@kenzieHubUserId");
-    toast.success("Logout realizado com sucesso");
+    toast.success("Sessão finalizada com sucesso");
   }
 
   return (
