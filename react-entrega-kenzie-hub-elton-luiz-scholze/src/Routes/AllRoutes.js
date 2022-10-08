@@ -3,11 +3,11 @@ import { Cadaster } from "../pages/Cadaster";
 import { Home } from "../pages/Home";
 import { Login } from "../pages/Login";
 
-export function AllRoutes() {
+export function AllRoutes({ user, setUser }) {
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
-      <Route path="/home" element={<Home />} />
+      <Route path="/" element={<Login setUser={setUser} />} />
+      <Route path="/home" element={<Home user={user} />} />
       <Route path="/cadaster" element={<Cadaster />} />
     </Routes>
   );
