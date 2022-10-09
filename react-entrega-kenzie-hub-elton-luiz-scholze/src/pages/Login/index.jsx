@@ -50,11 +50,20 @@ export function Login({ setUser }) {
         <h2>Login</h2>
 
         <label htmlFor="email">Nome</label>
-        <input id="email" {...register("email")} />
+        <input
+          id="email"
+          placeholder="Digite aqui seu nome"
+          {...register("email")}
+        />
         <p>{errors.email?.message}</p>
 
         <label htmlFor="password">Senha</label>
-        <input id="password" type="password" {...register("password")} />
+        <input
+          id="password"
+          type="password"
+          placeholder="Digite aqui sua senha"
+          {...register("password")}
+        />
         <p>{errors.password?.message}</p>
 
         <button type="submit" disabled={loading}>
