@@ -1,7 +1,10 @@
 import * as yup from "yup";
 
 export const cadasterSchema = yup.object().shape({
-  name: yup.string().required("Nome obrigatório"),
+  name: yup
+    .string()
+    .min(5, "Deve conter no mínimo 5 caracteres")
+    .required("Nome obrigatório"),
 
   email: yup
     .string()
