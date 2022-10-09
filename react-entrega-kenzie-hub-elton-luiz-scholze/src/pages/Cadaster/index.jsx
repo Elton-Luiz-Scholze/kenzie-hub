@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Forms } from "../../styles/Forms";
+import { Container, Forms } from "../../styles/Forms";
 import { cadasterSchema } from "./cadasterSchema";
 import { RequestApi } from "../../requests/RequestApi";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Nav } from "../../styles/Nav";
 import logo from "../../assets/Logo.svg";
 
 export function Cadaster() {
@@ -33,41 +34,66 @@ export function Cadaster() {
   }
 
   return (
-    <>
-      <nav>
+    <Container>
+      <Nav>
         <img src={logo} alt="Logo Kenzie Hub" />
         <Link to={"/"}>Voltar</Link>
-      </nav>
+      </Nav>
       <Forms onSubmit={handleSubmit(onSubmitFunction)}>
         <h2>Crie sua conta</h2>
-        <p>Rápido e grátis, vamos nessa</p>
+        <span>Rápido e grátis, vamos nessa</span>
 
         <label htmlFor="name">Nome</label>
-        <input id="name" type="text" {...register("name")} />
+        <input
+          id="name"
+          type="text"
+          placeholder="Digite aqui seu nome"
+          {...register("name")}
+        />
         <p>{errors.name?.message}</p>
 
         <label htmlFor="email">Email</label>
-        <input id="email" {...register("email")} />
+        <input
+          id="email"
+          placeholder="Digite aqui seu email"
+          {...register("email")}
+        />
         <p>{errors.email?.message}</p>
 
         <label htmlFor="password">Senha</label>
-        <input id="password" type="password" {...register("password")} />
+        <input
+          id="password"
+          type="password"
+          placeholder="Digite aqui sua senha"
+          {...register("password")}
+        />
         <p>{errors.password?.message}</p>
 
         <label htmlFor="passwordConfirm">Confirmar Senha</label>
         <input
           id="passwordConfirm"
           type="password"
+          placeholder="Digite novamente sua senha"
           {...register("passwordConfirm")}
         />
         <p>{errors.passwordConfirm?.message}</p>
 
         <label htmlFor="bio">Bio</label>
-        <input id="bio" type="text" {...register("bio")} />
+        <input
+          id="bio"
+          type="text"
+          placeholder="Fale sobre você"
+          {...register("bio")}
+        />
         <p>{errors.bio?.message}</p>
 
         <label htmlFor="contact">Contato</label>
-        <input id="contact" type="text" {...register("contact")} />
+        <input
+          id="contact"
+          type="text"
+          placeholder="Opção de contato"
+          {...register("contact")}
+        />
         <p>{errors.contact?.message}</p>
 
         <label htmlFor="course_module">Selecionar módulo</label>
@@ -80,10 +106,10 @@ export function Cadaster() {
           <option value="5º Módulo">5º Módulo</option>
           <option value="6º Módulo">6º Módulo</option>
         </select>
-        <p>{errors.module?.message}</p>
+        <p>{errors.course_module?.message}</p>
 
         <button type="submit">Cadastrar</button>
       </Forms>
-    </>
+    </Container>
   );
 }

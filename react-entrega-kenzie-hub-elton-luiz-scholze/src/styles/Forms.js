@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+export const Container = styled.main`
+  width: 90%;
+  max-width: 600px;
+  margin: 0 auto;
+`;
+
 export const Forms = styled.form`
   display: flex;
   flex-direction: column;
@@ -7,23 +13,28 @@ export const Forms = styled.form`
   max-width: 600px;
   margin: 16px auto;
   padding: 16px;
-  gap: 1rem;
-  color: #817977;
-  background-color: #1b1d1e;
+  gap: 0.8rem;
+  color: var(--texts);
+  background-color: var(--background-form-btn-header);
 
   h2 {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 28px;
     text-align: center;
-    line-height: 16px;
-    font-size: 1.5rem;
   }
 
-  p {
+  span {
     font-size: 12px;
-    line-height: 12px;
+    font-weight: 400;
+    line-height: 18px;
     text-align: center;
+    color: var(--text-info);
   }
 
   label {
+    font-weight: 400;
+    font-size: 12px;
     line-height: 12px;
     width: 90%;
     margin: 0 auto;
@@ -31,17 +42,19 @@ export const Forms = styled.form`
 
   input,
   button {
+    box-sizing: border-box;
     width: 90%;
-    height: 30px;
+    height: 40px;
     margin: 0 auto;
     border-radius: 8px;
-    color: #c6c8d2;
-    border: 1px solid #514d4c;
-    background-color: #1b1d1e;
-  }
+    border: none;
+    padding-left: 12px;
+    color: var(--texts);
+    background-color: var(--grey-2);
 
-  input::placeholder {
-    color: #514d4c;
+    &::placeholder {
+      color: var(--text-info);
+    }
   }
 
   select {
@@ -49,19 +62,40 @@ export const Forms = styled.form`
     height: 30px;
     margin: 0 auto;
     border-radius: 8px;
-    background-color: #1b1d1e;
-    color: #ffffff;
+    background-color: var(--grey-2);
+    color: var(--texts);
+    cursor: pointer;
+  }
+
+  p {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 10px;
+    width: 90%;
+    margin: 0 auto 10px auto;
+    color: var(--negative);
   }
 
   a {
-    text-decoration: none;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 90%;
-    height: 30px;
+    height: 40px;
     margin: 0 auto;
     border-radius: 8px;
-    color: #c6c8d2;
-    border: 1px solid #514d4c;
-    background-color: #1b1d1e;
+    color: var(--texts);
+    border: none;
+    background-color: var(--text-info);
+  }
+
+  button {
+    margin-bottom: 10px;
+    background-color: var(--background-btn-form);
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--background-btn-form-focus);
+    }
   }
 `;
