@@ -61,6 +61,10 @@ export const Forms = styled.form`
     &::placeholder {
       color: var(--text-info);
     }
+
+    &:focus::placeholder {
+      color: var(--texts);
+    }
   }
 
   select {
@@ -69,8 +73,12 @@ export const Forms = styled.form`
     margin: 0 auto;
     border-radius: 8px;
     background-color: var(--grey-2);
-    color: var(--texts);
+    color: var(--text-info);
     cursor: pointer;
+
+    &:focus {
+      color: var(--texts);
+    }
   }
 
   p {
@@ -93,11 +101,18 @@ export const Forms = styled.form`
     color: var(--texts);
     border: none;
     background-color: var(--text-info);
+    transition: 0.5s;
+
+    &:hover {
+      background-color: var(--grey-2);
+    }
   }
 
   button {
+    font-weight: 700;
     margin-bottom: 10px;
     background-color: var(--background-btn-form);
+    transition: 0.5s;
     cursor: pointer;
 
     &:hover {
