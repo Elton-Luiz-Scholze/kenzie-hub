@@ -22,5 +22,10 @@ export const Nav = styled.nav`
     background-color: var(--background-form-btn-header);
     color: var(--texts);
     border-radius: 8px;
+    transition: 0.5s;
+
+    &:hover {
+      background-color: var(--text-info);
+    }
   }
 `;
