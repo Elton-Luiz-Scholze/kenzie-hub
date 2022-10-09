@@ -1,11 +1,12 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Forms } from "../../styles/Forms";
+import { Container, Forms } from "../../styles/Forms";
 import { loginSchema } from "./loginSchema";
 import { RequestApi } from "../../requests/RequestApi";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import logo from "../../assets/Logo.svg";
 import "react-toastify/dist/ReactToastify.css";
 
 export function Login({ setUser }) {
@@ -32,10 +33,7 @@ export function Login({ setUser }) {
       const response = await RequestApi.post("sessions", data);
       localStorage.setItem("@kenzieHubToken", response.data.token);
       localStorage.setItem("@kenzieHubUserId", response.data.user.id);
-      setUser({
-        name: response.data.user.name,
-        course_module: response.data.user.course_module,
-      });
+      setUser(response.data.user);
       toast.success("Login realizado com sucesso!");
       navigate("/home");
     } catch (error) {
@@ -46,23 +44,26 @@ export function Login({ setUser }) {
   }
 
   return (
-    <Forms onSubmit={handleSubmit(onSubmitFunction)}>
-      <h2>Login</h2>
+    <Container>
+      <img src={logo} alt="Logo Kenzie Hub" />
+      <Forms onSubmit={handleSubmit(onSubmitFunction)}>
+        <h2>Login</h2>
 
-      <label htmlFor="email">Nome</label>
-      <input id="email" {...register("email")} />
-      <p>{errors.email?.message}</p>
+        <label htmlFor="email">Nome</label>
+        <input id="email" {...register("email")} />
+        <p>{errors.email?.message}</p>
 
-      <label htmlFor="password">Senha</label>
-      <input id="password" type="password" {...register("password")} />
-      <p>{errors.password?.message}</p>
+        <label htmlFor="password">Senha</label>
+        <input id="password" type="password" {...register("password")} />
+        <p>{errors.password?.message}</p>
 
-      <button type="submit" disabled={loading}>
-        {loading ? "Entrando..." : "Entrar"}
-      </button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Entrando..." : "Entrar"}
+        </button>
 
-      <span>Ainda não possui conta?</span>
-      <Link to={"/cadaster"}>Cadastre-se</Link>
-    </Forms>
+        <span>Ainda não possui conta?</span>
+        <Link to={"/cadaster"}>Cadastre-se</Link>
+      </Forms>
+    </Container>
   );
 }
