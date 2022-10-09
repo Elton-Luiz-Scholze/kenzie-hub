@@ -4,6 +4,12 @@ export const Container = styled.main`
   width: 90%;
   max-width: 600px;
   margin: 0 auto;
+
+  & > :nth-child(1) {
+    display: flex;
+    height: 20px;
+    margin: 20px auto;
+  }
 `;
 
 export const Forms = styled.form`
@@ -96,6 +102,10 @@ export const Forms = styled.form`
 
     &:hover {
       background-color: var(--background-btn-form-focus);
+    }
+
+    &:disabled {
+      opacity: 0.5;
     }
   }
 `;
