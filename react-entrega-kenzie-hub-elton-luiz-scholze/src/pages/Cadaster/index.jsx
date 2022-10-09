@@ -3,12 +3,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Container, Forms } from "../../styles/Forms";
 import { cadasterSchema } from "./cadasterSchema";
 import { RequestApi } from "../../requests/RequestApi";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Nav } from "../../styles/Nav";
 import logo from "../../assets/Logo.svg";
+import { toast } from "react-toastify";
 
 export function Cadaster() {
+  const [loading, setLoading] = useState(false);
   const token = localStorage.getItem("@kenzieHubToken");
   const navigate = useNavigate();
   const {
@@ -27,9 +29,14 @@ export function Cadaster() {
 
   async function onSubmitFunction(data) {
     try {
+      setLoading(true);
       await RequestApi.post("users", data);
-    } catch (error) {
-      console.log(error);
+      toast.success("Conta criada com sucesso!");
+      navigate("/");
+    } catch {
+      toast.error("Ops! Algo deu errado.");
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -97,7 +104,7 @@ export function Cadaster() {
         <p>{errors.contact?.message}</p>
 
         <label htmlFor="course_module">Selecionar módulo</label>
-        <select id="module" {...register("course_module")}>
+        <select id="course_module" {...register("course_module")}>
           <option value="">Selecione...</option>
           <option value="1º modulo">1º Módulo</option>
           <option value="2º modulo">2º Módulo</option>
@@ -108,7 +115,9 @@ export function Cadaster() {
         </select>
         <p>{errors.course_module?.message}</p>
 
-        <button type="submit">Cadastrar</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Cadastrando..." : "Cadastrar"}
+        </button>
       </Forms>
     </Container>
   );

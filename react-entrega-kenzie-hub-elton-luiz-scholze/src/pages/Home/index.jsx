@@ -29,7 +29,7 @@ export function Home({ user }) {
         <div>
           <h2>Que pena! Estamos em desenvolvimento :(</h2>
           <p>
-            Nossa aplicação está em desenvolvimento, em breve teremos novidades
+            Nossa aplicação está em desenvolvimento, em breve teremos novidades.
           </p>
         </div>
       </Main>
