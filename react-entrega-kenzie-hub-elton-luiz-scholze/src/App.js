@@ -1,4 +1,5 @@
 import { ToastContainer } from "react-toastify";
+import { Providers } from "./contexts/Providers";
 import { AllRoutes } from "./Routes/AllRoutes";
 import { GlobalStyle } from "./styles/GlobalStyles";
 
@@ -7,6 +8,9 @@ function App() {
     <>
       <GlobalStyle />
       <div className="App">
+        <Providers>
+          <AllRoutes />
+        </Providers>
         <ToastContainer
           position="top-right"
           autoClose={2000}
@@ -17,7 +21,6 @@ function App() {
           progress={undefined}
           theme="colored"
         />
-        <AllRoutes />
       </div>
     </>
   );

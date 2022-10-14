@@ -16,6 +16,19 @@ export function UserProvider({ children }) {
     }
   });
 
+  async function userCadaster(data, setLoading) {
+    try {
+      setLoading(true);
+      await RequestApi.post("users", data);
+      toast.success("Conta criada com sucesso!");
+      navigate("/");
+    } catch {
+      toast.error("Ops! Algo deu errado.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   async function userLogin(data, setLoading) {
     try {
       setLoading(true);
@@ -32,7 +45,7 @@ export function UserProvider({ children }) {
     }
   }
   return (
-    <UserContext.Provider value={{ user, userLogin }}>
+    <UserContext.Provider value={{ user, userCadaster, userLogin }}>
       {children}
     </UserContext.Provider>
   );

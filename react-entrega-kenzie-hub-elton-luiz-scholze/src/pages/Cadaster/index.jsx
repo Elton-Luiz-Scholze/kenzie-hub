@@ -2,17 +2,15 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Container, Forms } from "../../styles/Forms";
 import { cadasterSchema } from "./cadasterSchema";
-import { RequestApi } from "../../requests/RequestApi";
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import { Nav } from "../../styles/Nav";
 import logo from "../../assets/Logo.svg";
-import { toast } from "react-toastify";
+import { UserContext } from "../../contexts/UserContext";
 
 export function Cadaster() {
   const [loading, setLoading] = useState(false);
-  const token = localStorage.getItem("@kenzieHubToken");
-  const navigate = useNavigate();
+  const { userCadaster } = useContext(UserContext);
   const {
     register,
     handleSubmit,
@@ -21,23 +19,8 @@ export function Cadaster() {
     resolver: yupResolver(cadasterSchema),
   });
 
-  useEffect(() => {
-    if (token) {
-      navigate("/home");
-    }
-  });
-
   async function onSubmitFunction(data) {
-    try {
-      setLoading(true);
-      await RequestApi.post("users", data);
-      toast.success("Conta criada com sucesso!");
-      navigate("/");
-    } catch {
-      toast.error("Ops! Algo deu errado.");
-    } finally {
-      setLoading(false);
-    }
+    userCadaster(data, setLoading);
   }
 
   return (
