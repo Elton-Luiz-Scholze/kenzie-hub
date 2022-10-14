@@ -29,10 +29,10 @@ export function Login() {
       <Forms onSubmit={handleSubmit(onSubmitFunction)}>
         <h2>Login</h2>
 
-        <label htmlFor="email">Nome</label>
+        <label htmlFor="email">Email</label>
         <input
           id="email"
-          placeholder="Digite aqui seu nome"
+          placeholder="Digite aqui seu Email"
           {...register("email")}
         />
         <p>{errors.email?.message}</p>
