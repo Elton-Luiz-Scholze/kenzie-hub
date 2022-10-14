@@ -1,10 +1,15 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { UserContext } from "../../contexts/UserContext";
 import logo from "../../assets/Logo.svg";
 import { Nav } from "../../styles/Nav";
 import { Header, Main } from "./style";
 
-export function Home({ user }) {
+export function Home() {
+  const { user } = useContext(UserContext);
+  console.log(user);
+
   function logout() {
     localStorage.removeItem("@kenzieHubToken");
     localStorage.removeItem("@kenzieHubUserId");
@@ -26,12 +31,20 @@ export function Home({ user }) {
         </div>
       </Header>
       <Main>
-        <div>
-          <h2>Que pena! Estamos em desenvolvimento :(</h2>
-          <p>
-            Nossa aplicação está em desenvolvimento, em breve teremos novidades.
-          </p>
-        </div>
+        {user.techs.length ? (
+          <ul>
+            {user.techs.map(({ title, status }, index) => (
+              <li key={index}>
+                <h3>{title}</h3>
+                <p>{status}</p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div>
+            <h2>Que pena! Você ainda não possui tecnologias cadastradas :(</h2>
+          </div>
+        )}
       </Main>
     </>
   );
