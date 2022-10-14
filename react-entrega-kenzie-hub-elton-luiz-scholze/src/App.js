@@ -1,10 +1,8 @@
-import { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import { AllRoutes } from "./Routes/AllRoutes";
 import { GlobalStyle } from "./styles/GlobalStyles";
 
 function App() {
-  const [user, setUser] = useState({});
   return (
     <>
       <GlobalStyle />
@@ -19,7 +17,7 @@ function App() {
           progress={undefined}
           theme="colored"
         />
-        <AllRoutes user={user} setUser={setUser} />
+        <AllRoutes />
       </div>
     </>
   );
