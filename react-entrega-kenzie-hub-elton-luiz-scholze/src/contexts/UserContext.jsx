@@ -11,7 +11,6 @@ export function UserProvider({ children }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("banana");
     async function autoLogin() {
       if (token) {
         try {
