@@ -11,10 +11,27 @@ export function UserProvider({ children }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (token) {
-      navigate("/home");
+    console.log("banana");
+    async function autoLogin() {
+      if (token) {
+        try {
+          const response = await RequestApi.get("profile", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setUser(response.data);
+          navigate("/home");
+        } catch {
+          localStorage.removeItem("@kenzieHubToken");
+          localStorage.removeItem("@kenzieHubUserId");
+          toast.error("Ops, algo deu errado!");
+          navigate("/");
+        }
+      }
     }
-  });
+    autoLogin();
+  }, []);
 
   async function userCadaster(data, setLoading) {
     try {
