@@ -32,8 +32,11 @@ export const List = styled.li`
 
       @media (min-width: 768px) {
         display: flex;
-        height: 20px;
-        width: 20px;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        height: 30px;
+        width: 30px;
         border: none;
         background-color: transparent;
         color: var(--texts);
