@@ -8,7 +8,6 @@ import { Header, Main } from "./style";
 
 export function Home() {
   const { user } = useContext(UserContext);
-  console.log(user);
 
   function logout() {
     localStorage.removeItem("@kenzieHubToken");
@@ -31,7 +30,11 @@ export function Home() {
         </div>
       </Header>
       <Main>
-        {user.techs.length ? (
+        <div>
+          <h2>Tecnologias</h2>
+          <button>+</button>
+        </div>
+        {/* {user.techs.length ? (
           <ul>
             {user.techs.map(({ title, status }, index) => (
               <li key={index}>
@@ -44,7 +47,7 @@ export function Home() {
           <div>
             <h2>Que pena! Você ainda não possui tecnologias cadastradas :(</h2>
           </div>
-        )}
+        )} */}
       </Main>
     </>
   );

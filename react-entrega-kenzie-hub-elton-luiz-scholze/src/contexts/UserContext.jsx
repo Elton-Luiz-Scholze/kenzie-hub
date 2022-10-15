@@ -7,11 +7,12 @@ export const UserContext = createContext({});
 
 export function UserProvider({ children }) {
   const [user, setUser] = useState({});
-  const token = localStorage.getItem("@kenzieHubToken");
   const navigate = useNavigate();
 
   useEffect(() => {
     async function autoLogin() {
+      const token = localStorage.getItem("@kenzieHubToken");
+
       if (token) {
         try {
           const response = await RequestApi.get("profile", {
@@ -23,7 +24,6 @@ export function UserProvider({ children }) {
           navigate("/home");
         } catch {
           localStorage.removeItem("@kenzieHubToken");
-          localStorage.removeItem("@kenzieHubUserId");
           toast.error("Ops, algo deu errado!");
           navigate("/");
         }
@@ -50,8 +50,7 @@ export function UserProvider({ children }) {
       setLoading(true);
       const response = await RequestApi.post("sessions", data);
       localStorage.setItem("@kenzieHubToken", response.data.token);
-      localStorage.setItem("@kenzieHubUserId", response.data.user.id);
-      setUser(response.data.user);
+      setUser(response.data);
       toast.success("Login realizado com sucesso!");
       navigate("/home");
     } catch (error) {
