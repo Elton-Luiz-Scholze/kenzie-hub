@@ -52,9 +52,17 @@ export const Main = styled.main`
       font-size: 16px;
     }
 
-    p {
-      font-weight: 400;
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 16px;
+      height: 30px;
+      width: 30px;
+      background-color: var(--background-form-btn-header);
+      color: var(--texts);
+      border: none;
+      border-radius: 8px;
     }
   }
 

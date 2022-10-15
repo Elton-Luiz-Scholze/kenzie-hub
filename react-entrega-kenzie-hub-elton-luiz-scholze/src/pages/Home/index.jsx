@@ -1,3 +1,5 @@
+import { IoMdAdd } from "react-icons/io";
+
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -33,7 +35,9 @@ export function Home() {
       <Main>
         <div>
           <h2>Tecnologias</h2>
-          <button>+</button>
+          <button>
+            <IoMdAdd />
+          </button>
         </div>
 
         {user.techs.length ? (
