@@ -37,23 +37,36 @@ export const Main = styled.main`
   width: 100vw;
   height: 100%;
 
-  div {
+  & > :nth-child(1) {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 90%;
+    padding: 0 5px;
     max-width: 1000px;
     height: 50px;
     margin-top: 20px;
 
     h2 {
       font-weight: 700;
-      font-size: 18px;
+      font-size: 16px;
     }
 
     p {
       font-weight: 400;
       font-size: 16px;
     }
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    max-width: 1000px;
+    padding: 16px 10px;
+    margin: 0 auto;
+    gap: 12px;
+    background-color: var(--background-form-btn-header);
+    border-radius: 8px;
   }
 `;
