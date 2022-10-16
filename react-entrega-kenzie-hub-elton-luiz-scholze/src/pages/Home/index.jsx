@@ -1,6 +1,5 @@
 import { IoMdAdd } from "react-icons/io";
-
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { UserContext } from "../../contexts/UserContext";
@@ -8,14 +7,20 @@ import logo from "../../assets/Logo.svg";
 import { Nav } from "../../styles/Nav";
 import { Header, Main } from "./style";
 import { ListTechs } from "../../components/ListTechs";
+import { Modal } from "../../components/Modal";
 
 export function Home() {
+  const [addModal, setAddModal] = useState(false);
   const { user } = useContext(UserContext);
 
   function logout() {
     localStorage.removeItem("@kenzieHubToken");
     localStorage.removeItem("@kenzieHubUserId");
     toast.success("Sessão finalizada com sucesso");
+  }
+
+  function showModal() {
+    setAddModal(true);
   }
 
   return (
@@ -35,7 +40,7 @@ export function Home() {
       <Main>
         <div>
           <h2>Tecnologias</h2>
-          <button>
+          <button type="button" onClick={showModal}>
             <IoMdAdd />
           </button>
         </div>
@@ -43,7 +48,7 @@ export function Home() {
         {user.techs.length ? (
           <ul>
             {user.techs.map(({ title, status, id }) => (
-              <ListTechs key={id} title={title} status={status} />
+              <ListTechs key={id} title={title} status={status} id={id} />
             ))}
           </ul>
         ) : (
@@ -52,6 +57,7 @@ export function Home() {
           </div>
         )}
       </Main>
+      {addModal ? <Modal setAddModal={setAddModal} /> : <></>}
     </>
   );
 }
