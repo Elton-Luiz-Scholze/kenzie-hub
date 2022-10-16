@@ -6,9 +6,9 @@ import { cadasterTechsSchema } from "./cadasterTechsSchema";
 import { useContext } from "react";
 import { TechContext } from "../../contexts/TechContext";
 
-export function Modal({ setAddModal }) {
-  const { loading, setLoading } = useContext(TechContext);
-  const { createTechs } = useContext(TechContext);
+export function Modal() {
+  const { loading, setLoading, createTechs, setAddModal } =
+    useContext(TechContext);
   const {
     register,
     handleSubmit,

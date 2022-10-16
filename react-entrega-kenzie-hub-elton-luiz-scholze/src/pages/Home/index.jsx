@@ -1,5 +1,5 @@
 import { IoMdAdd } from "react-icons/io";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { UserContext } from "../../contexts/UserContext";
@@ -8,10 +8,11 @@ import { Nav } from "../../styles/Nav";
 import { Header, Main } from "./style";
 import { ListTechs } from "../../components/ListTechs";
 import { Modal } from "../../components/Modal";
+import { TechContext } from "../../contexts/TechContext";
 
 export function Home() {
-  const [addModal, setAddModal] = useState(false);
   const { user } = useContext(UserContext);
+  const { addModal, setAddModal } = useContext(TechContext);
 
   function logout() {
     localStorage.removeItem("@kenzieHubToken");
@@ -57,7 +58,7 @@ export function Home() {
           </div>
         )}
       </Main>
-      {addModal ? <Modal setAddModal={setAddModal} /> : <></>}
+      {addModal ? <Modal /> : <></>}
     </>
   );
 }
