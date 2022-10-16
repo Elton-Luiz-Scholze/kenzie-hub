@@ -10,17 +10,17 @@ function App() {
       <div className="App">
         <Providers>
           <AllRoutes />
+          <ToastContainer
+            position="top-right"
+            autoClose={2000}
+            hideProgressBar={false}
+            closeOnClick={true}
+            pauseOnHover={true}
+            draggable={true}
+            progress={undefined}
+            theme="colored"
+          />
         </Providers>
-        <ToastContainer
-          position="top-right"
-          autoClose={2000}
-          hideProgressBar={false}
-          closeOnClick={true}
-          pauseOnHover={true}
-          draggable={true}
-          progress={undefined}
-          theme="colored"
-        />
       </div>
     </>
   );
