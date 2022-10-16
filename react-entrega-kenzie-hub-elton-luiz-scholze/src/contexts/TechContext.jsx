@@ -1,12 +1,14 @@
 import { createContext, useContext, useState } from "react";
 import { toast } from "react-toastify";
+// import { ListTechs } from "../components/ListTechs";
 import { RequestApi } from "../requests/RequestApi";
 import { UserContext } from "./UserContext";
-
 export const TechContext = createContext({});
 
 export function TechProvider({ children }) {
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
+  const [addModal, setAddModal] = useState(false);
+  const [techs, setTechs] = useState(user.techs);
   const [loading, setLoading] = useState(false);
 
   async function createTechs(data) {
@@ -14,17 +16,19 @@ export function TechProvider({ children }) {
     if (token) {
       try {
         setLoading(true);
-        await RequestApi.post("users/techs", data, {
+        const response = await RequestApi.post("users/techs", data, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        const newData = await RequestApi.get("profile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setUser(newData);
+        // const newData = await RequestApi.get("profile", {
+        //   headers: {
+        //     Authorization: `Bearer ${token}`,
+        //   },
+        // });
+        toast.success("Tecnologia cadastrada com sucesso!");
+        setUser([...techs, response]);
+        setAddModal(false);
       } catch {
         toast.error("Ops, algo deu errado!");
       } finally {
@@ -38,17 +42,18 @@ export function TechProvider({ children }) {
     if (token) {
       try {
         setLoading(true);
-        await RequestApi.delete(`users/techs/${id}`, {
+        const response = await RequestApi.delete(`users/techs/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
-        const newData = await RequestApi.get("profile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setUser(newData);
+        // const newData = await RequestApi.get("profile", {
+        //   headers: {
+        //     Authorization: `Bearer ${token}`,
+        //   },
+        // });
+        setTechs({ ...techs, response });
+        toast.success("Tecnologia deletada com sucesso!");
       } catch {
         toast.error("Ops, algo deu errado!");
       } finally {
@@ -59,7 +64,15 @@ export function TechProvider({ children }) {
 
   return (
     <TechContext.Provider
-      value={{ createTechs, deleteTechs, loading, setLoading }}
+      value={{
+        createTechs,
+        deleteTechs,
+        loading,
+        setLoading,
+        techs,
+        addModal,
+        setAddModal,
+      }}
     >
       {children}
     </TechContext.Provider>
