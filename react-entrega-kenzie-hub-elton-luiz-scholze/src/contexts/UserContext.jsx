@@ -1,11 +1,13 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { RequestApi } from "../requests/RequestApi";
+import { TechContext } from "./TechContext";
 
 export const UserContext = createContext({});
 
 export function UserProvider({ children }) {
+  const {addModal} = useContext(TechContext);
   const [user, setUser] = useState({});
   const [currentRoute, setCurrentRoute] = useState(null);
   const [techs, setTechs] = useState([]);
@@ -33,7 +35,7 @@ export function UserProvider({ children }) {
       }
     }
     autoLogin();
-  }, []);
+  }, [addModal]);
 
   async function userCadaster(data, setLoading) {
     try {
@@ -53,7 +55,7 @@ export function UserProvider({ children }) {
       setLoading(true);
       const response = await RequestApi.post("sessions", data);
       localStorage.setItem("@kenzieHubToken", response.data.token);
-      setUser(response.data);
+      setUser(response.data.user);
       setTechs(response.data.user.techs);
       toast.success("Login realizado com sucesso!");
       navigate("/home");
@@ -76,6 +78,7 @@ export function UserProvider({ children }) {
         user,
         setUser,
         techs,
+        setTechs,
         userCadaster,
         userLogin,
         logout,

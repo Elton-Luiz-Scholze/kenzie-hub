@@ -1,5 +1,5 @@
 import { IoMdAdd } from "react-icons/io";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../contexts/UserContext";
 import logo from "../../assets/Logo.svg";
@@ -12,6 +12,7 @@ import { TechContext } from "../../contexts/TechContext";
 export function Home() {
   const { user, techs, logout } = useContext(UserContext);
   const { addModal, setAddModal } = useContext(TechContext);
+  const {name, course_module} = user;
 
   function showModal() {
     setAddModal(true);
@@ -27,8 +28,8 @@ export function Home() {
       </Nav>
       <Header>
         <div>
-          <h2>Olá, {user.name}</h2>
-          <p>{user.course_module}</p>
+          <h2>Olá, {name}</h2>
+          <p>{course_module}</p>
         </div>
       </Header>
       <Main>
