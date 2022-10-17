@@ -10,6 +10,10 @@ export const List = styled.li`
   background-color: var(--background-page);
   border-radius: 8px;
 
+  :hover {
+    background-color: var(--grey-2);
+  }
+  
   h3 {
     font-weight: 700;
     font-size: 14px;
@@ -37,6 +41,7 @@ export const List = styled.li`
       border: none;
       background-color: transparent;
       color: var(--texts);
+      cursor: pointer;
     }
   }
 `;
