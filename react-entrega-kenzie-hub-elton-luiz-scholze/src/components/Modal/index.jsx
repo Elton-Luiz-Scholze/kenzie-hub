@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { cadasterTechsSchema } from "./cadasterTechsSchema";
 import { useContext } from "react";
 import { TechContext } from "../../contexts/TechContext";
+import { ModalStyle } from "./style";
 
 export function Modal() {
   const { loading, setLoading, createTechs, setAddModal } =
@@ -27,19 +28,21 @@ export function Modal() {
 
   return (
     <>
-      <div className="background">
-        <div className="header">
-          <h3>Cadastar Tecnologia</h3>
-          <button type="button" onClick={closeModal}>
-            <AiOutlineClose />
-          </button>
+      <ModalStyle>
+        <div>
+          <div>
+            <h3>Cadastar Tecnologia</h3>
+            <button type="button" onClick={closeModal}>
+              <AiOutlineClose />
+            </button>
+          </div>
         </div>
         <Forms onSubmit={handleSubmit(onSubmitFunction)}>
-          <label htmlFor="title"></label>
-          <input type="text" {...register("title")} />
+          <label htmlFor="title">Nome</label>
+          <input type="text" placeholder="Digite o nome da tecnologia" {...register("title")} />
           <p>{errors.title?.message}</p>
 
-          <label htmlFor="status"></label>
+          <label htmlFor="status">Selecionar status</label>
           <select {...register("status")}>
             <option value="">Selecione...</option>
             <option value="Iniciante">Iniciante</option>
@@ -52,7 +55,7 @@ export function Modal() {
             {loading ? "Cadastrando Tecnologia..." : "Cadastrar Tecnologia"}
           </button>
         </Forms>
-      </div>
+      </ModalStyle>
     </>
   );
 }

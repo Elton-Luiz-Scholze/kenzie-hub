@@ -18,11 +18,11 @@ export function TechProvider({ children }) {
         const response = await RequestApi.post("users/techs", data, {
           headers: {
             Authorization: `Bearer ${token}`,
-          },
+          }
         });
-        setTechs(response.data);
+        setTechs([...techs, response.data]);
         toast.success("Tecnologia cadastrada com sucesso!");
-      } catch {
+      } catch  {
         toast.error("Ops, algo deu errado!");
       } finally {
         setAddModal(false);

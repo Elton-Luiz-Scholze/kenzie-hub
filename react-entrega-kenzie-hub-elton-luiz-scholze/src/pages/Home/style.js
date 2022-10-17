@@ -63,6 +63,7 @@ export const Main = styled.main`
       color: var(--texts);
       border: none;
       border-radius: 8px;
+      cursor: pointer;
     }
   }
 
