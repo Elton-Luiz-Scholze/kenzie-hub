@@ -7,6 +7,8 @@ export const UserContext = createContext({});
 
 export function UserProvider({ children }) {
   const [user, setUser] = useState({});
+  const [currentRoute, setCurrentRoute] = useState(null);
+  const [techs, setTechs] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,6 +23,7 @@ export function UserProvider({ children }) {
             },
           });
           setUser(response.data);
+          setTechs(response.data.techs);
           navigate("/home");
         } catch {
           localStorage.removeItem("@kenzieHubToken");
@@ -51,6 +54,7 @@ export function UserProvider({ children }) {
       const response = await RequestApi.post("sessions", data);
       localStorage.setItem("@kenzieHubToken", response.data.token);
       setUser(response.data);
+      setTechs(response.data.user.techs);
       toast.success("Login realizado com sucesso!");
       navigate("/home");
     } catch (error) {
@@ -59,8 +63,26 @@ export function UserProvider({ children }) {
       setLoading(false);
     }
   }
+
+  function logout() {
+    localStorage.removeItem("@kenzieHubToken");
+    localStorage.removeItem("@kenzieHubUserId");
+    toast.success("Sessão finalizada com sucesso");
+  }
+
   return (
-    <UserContext.Provider value={{ user, setUser, userCadaster, userLogin }}>
+    <UserContext.Provider
+      value={{
+        user,
+        setUser,
+        techs,
+        userCadaster,
+        userLogin,
+        logout,
+        currentRoute,
+        setCurrentRoute,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
