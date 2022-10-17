@@ -1,7 +1,6 @@
 import { IoMdAdd } from "react-icons/io";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 import { UserContext } from "../../contexts/UserContext";
 import logo from "../../assets/Logo.svg";
 import { Nav } from "../../styles/Nav";
@@ -11,14 +10,8 @@ import { Modal } from "../../components/Modal";
 import { TechContext } from "../../contexts/TechContext";
 
 export function Home() {
-  const { user } = useContext(UserContext);
+  const { user, techs, logout } = useContext(UserContext);
   const { addModal, setAddModal } = useContext(TechContext);
-
-  function logout() {
-    localStorage.removeItem("@kenzieHubToken");
-    localStorage.removeItem("@kenzieHubUserId");
-    toast.success("Sessão finalizada com sucesso");
-  }
 
   function showModal() {
     setAddModal(true);
@@ -46,17 +39,24 @@ export function Home() {
           </button>
         </div>
 
-        {user.techs.length ? (
-          <ul>
-            {user.techs.map(({ title, status, id }) => (
-              <ListTechs key={id} title={title} status={status} id={id} />
-            ))}
-          </ul>
-        ) : (
-          <div>
-            <h2>Que pena! Você ainda não possui tecnologias cadastradas :(</h2>
-          </div>
-        )}
+        <ul>
+          {techs.length > 0 ? (
+            techs.map((tech) => (
+              <ListTechs
+                key={tech.id}
+                title={tech.title}
+                status={tech.status}
+                id={tech.id}
+              />
+            ))
+          ) : (
+            <div>
+              <h2>
+                Que pena! Você ainda não possui tecnologias cadastradas :(
+              </h2>
+            </div>
+          )}
+        </ul>
       </Main>
       {addModal ? <Modal /> : <></>}
     </>
