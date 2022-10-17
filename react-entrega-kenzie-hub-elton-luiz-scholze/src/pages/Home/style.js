@@ -31,35 +31,51 @@ export const Header = styled.header`
 
 export const Main = styled.main`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100vw;
   height: 100%;
 
-  div {
-    display: none;
+  & > :nth-child(1) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    padding: 0 5px;
+    max-width: 1000px;
+    height: 50px;
+    margin-top: 20px;
 
     h2 {
       font-weight: 700;
-      font-size: 18px;
-    }
-
-    p {
-      font-weight: 400;
       font-size: 16px;
     }
 
-    @media (min-width: 768px) {
-      & {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        width: 90%;
-        max-width: 1000px;
-        height: 100%;
-        margin-top: 20px;
-        gap: 20px;
-      }
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      height: 30px;
+      width: 30px;
+      background-color: var(--background-form-btn-header);
+      color: var(--texts);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
     }
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    max-width: 1000px;
+    padding: 16px 10px;
+    margin: 0 auto;
+    gap: 12px;
+    background-color: var(--background-form-btn-header);
+    border-radius: 8px;
   }
 `;

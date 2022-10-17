@@ -2,17 +2,15 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Container, Forms } from "../../styles/Forms";
 import { loginSchema } from "./loginSchema";
-import { RequestApi } from "../../requests/RequestApi";
-import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
 import logo from "../../assets/Logo.svg";
 import "react-toastify/dist/ReactToastify.css";
+import { UserContext } from "../../contexts/UserContext";
 
-export function Login({ setUser }) {
+export function Login() {
   const [loading, setLoading] = useState(false);
-  const token = localStorage.getItem("@kenzieHubToken");
-  const navigate = useNavigate();
+  const { userLogin } = useContext(UserContext);
   const {
     register,
     handleSubmit,
@@ -21,26 +19,8 @@ export function Login({ setUser }) {
     resolver: yupResolver(loginSchema),
   });
 
-  useEffect(() => {
-    if (token) {
-      navigate("/home");
-    }
-  });
-
   async function onSubmitFunction(data) {
-    try {
-      setLoading(true);
-      const response = await RequestApi.post("sessions", data);
-      localStorage.setItem("@kenzieHubToken", response.data.token);
-      localStorage.setItem("@kenzieHubUserId", response.data.user.id);
-      setUser(response.data.user);
-      toast.success("Login realizado com sucesso!");
-      navigate("/home");
-    } catch (error) {
-      toast.error("Email ou senha incorretos!!!");
-    } finally {
-      setLoading(false);
-    }
+    userLogin(data, setLoading);
   }
 
   return (
@@ -49,10 +29,10 @@ export function Login({ setUser }) {
       <Forms onSubmit={handleSubmit(onSubmitFunction)}>
         <h2>Login</h2>
 
-        <label htmlFor="email">Nome</label>
+        <label htmlFor="email">Email</label>
         <input
           id="email"
-          placeholder="Digite aqui seu nome"
+          placeholder="Digite aqui seu Email"
           {...register("email")}
         />
         <p>{errors.email?.message}</p>

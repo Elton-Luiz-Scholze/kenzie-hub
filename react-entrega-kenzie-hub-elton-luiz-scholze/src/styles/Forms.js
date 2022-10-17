@@ -17,11 +17,12 @@ export const Forms = styled.form`
   flex-direction: column;
   width: 90%;
   max-width: 600px;
-  margin: 16px auto;
+  margin: 0 auto;
   padding: 16px;
   gap: 0.8rem;
   color: var(--texts);
   background-color: var(--background-form-btn-header);
+
 
   h2 {
     font-size: 18px;
