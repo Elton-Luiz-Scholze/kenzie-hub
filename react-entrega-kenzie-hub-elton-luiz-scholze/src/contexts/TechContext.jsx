@@ -22,7 +22,7 @@ export function TechProvider({ children }) {
         });
         setTechs([...techs, response.data]);
         toast.success("Tecnologia cadastrada com sucesso!");
-      } catch  {
+      } catch {
         toast.error("Ops, algo deu errado!");
       } finally {
         setAddModal(false);
@@ -41,14 +41,19 @@ export function TechProvider({ children }) {
             Authorization: `Bearer ${token}`,
           },
         });
-        setTechs(techs)
+        const response = await RequestApi.get("profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setTechs(response.data.techs);
         toast.success("Tecnologia deletada com sucesso!");
       } catch {
         toast.error("Ops, algo deu errado!");
       } finally {
         setLoading(false);
       }
-    }
+      }
   }
 
   return (
