@@ -10,7 +10,6 @@ import { toast } from "react-toastify";
 import { iTechRegister } from "../components/Modal";
 import { RequestCreateTechs } from "../requests/RequestCreateTechs";
 import { RequestDeleteTechs } from "../requests/RequestDeleteTechs";
-import { UserContext } from "./UserContext";
 
 interface iTechs {
   id: string;
@@ -29,14 +28,14 @@ interface iTechContext {
   setLoading: Dispatch<SetStateAction<boolean>>;
   createTechs: (dataTech: iTechRegister) => void;
   deleteTechs: (id: string) => void;
-  techs: iTechs[];
+  techs: [iTechs];
   setTechs: Dispatch<SetStateAction<iTechs[]>>;
 }
 
 export const TechContext = createContext<iTechContext>({} as iTechContext);
 
 export function TechProvider({ children }: iTechContextProps) {
-  const [techs, setTechs] = useState<iTechs[]>([]);
+  const [techs, setTechs] = useState<[iTechs]>([]);
   const [addModal, setAddModal] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -64,7 +63,7 @@ export function TechProvider({ children }: iTechContextProps) {
       try {
         setLoading(true);
         const data = RequestDeleteTechs(token, id);
-        setTechs(data.techs);
+        setTechs((await data).user);
         toast.success("Tecnologia deletada com sucesso!");
       } catch {
         toast.error("Ops, algo deu errado!");
