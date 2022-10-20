@@ -3,18 +3,22 @@ import { Forms } from "../../styles/Forms";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { cadasterTechsSchema } from "./cadasterTechsSchema";
-import { useContext } from "react";
-import { TechContext } from "../../contexts/TechContext";
+import { useTechContext } from "../../contexts/TechContext";
 import { ModalStyle } from "./style";
 
+export interface iTechRegister {
+  title: string;
+  status: string;
+  id: string;
+}
+
 export function Modal() {
-  const { loading, setLoading, createTechs, setAddModal } =
-    useContext(TechContext);
+  const { loading, createTechs, setAddModal } = useTechContext();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<iTechRegister>({
     resolver: yupResolver(cadasterTechsSchema),
   });
 
@@ -22,8 +26,8 @@ export function Modal() {
     setAddModal(false);
   }
 
-  async function onSubmitFunction(data) {
-    createTechs(data, setLoading);
+  async function onSubmitFunction(dataTech: iTechRegister) {
+    createTechs(dataTech);
   }
 
   return (
@@ -39,7 +43,11 @@ export function Modal() {
         </div>
         <Forms onSubmit={handleSubmit(onSubmitFunction)}>
           <label htmlFor="title">Nome</label>
-          <input type="text" placeholder="Digite o nome da tecnologia" {...register("title")} />
+          <input
+            type="text"
+            placeholder="Digite o nome da tecnologia"
+            {...register("title")}
+          />
           <p>{errors.title?.message}</p>
 
           <label htmlFor="status">Selecionar status</label>

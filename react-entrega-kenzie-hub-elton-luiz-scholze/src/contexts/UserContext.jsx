@@ -1,16 +1,44 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { iTechRegister } from "../components/Modal";
 import { RequestApi } from "../requests/RequestApi";
-import { TechContext } from "./TechContext";
+import { RequestUserCadaster } from "../requests/RequestUserCadaster";
+import { TechContext, useTechContext } from "./TechContext";
+
+// export interface iUser {
+//   user: {
+//     id: string;
+//     name: string;
+//     email: string;
+//     course_module: string;
+//     bio: string;
+//     contact: string;
+//     techs: iTechRegister;
+//   };
+// }
+
+// interface iUserContextProps {
+//   children: ReactNode;
+// }
+
+// interface iUserContext {
+
+// }
 
 export const UserContext = createContext({});
 
-export function UserProvider({ children }) {
-  const {addModal} = useContext(TechContext);
+export function UserProvider({ children }) /*: iUserContextProps)*/ {
+  const { addModal } = useContext(TechContext);
   const [user, setUser] = useState({});
   const [currentRoute, setCurrentRoute] = useState(null);
-  const [techs, setTechs] = useState([]);
+  const { setTechs } = useTechContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,10 +65,11 @@ export function UserProvider({ children }) {
     autoLogin();
   }, [addModal]);
 
-  async function userCadaster(data, setLoading) {
+  async function userCadaster(dataUser, setLoading) {
     try {
       setLoading(true);
-      await RequestApi.post("users", data);
+      await RequestUserCadaster(dataUser);
+      await RequestApi.post("users", dataUser);
       toast.success("Conta criada com sucesso!");
       navigate("/");
     } catch {
@@ -50,10 +79,10 @@ export function UserProvider({ children }) {
     }
   }
 
-  async function userLogin(data, setLoading) {
+  async function userLogin(dataUser, setLoading) {
     try {
       setLoading(true);
-      const response = await RequestApi.post("sessions", data);
+      const response = await RequestApi.post("sessions", dataUser);
       localStorage.setItem("@kenzieHubToken", response.data.token);
       setUser(response.data.user);
       setTechs(response.data.user.techs);
@@ -77,8 +106,6 @@ export function UserProvider({ children }) {
       value={{
         user,
         setUser,
-        techs,
-        setTechs,
         userCadaster,
         userLogin,
         logout,
