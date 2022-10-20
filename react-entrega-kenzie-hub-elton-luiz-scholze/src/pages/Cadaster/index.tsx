@@ -6,7 +6,16 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Nav } from "../../styles/Nav";
 import logo from "../../assets/Logo.svg";
-import { UserContext } from "../../contexts/UserContext";
+
+interface iUserCadaster {
+  name: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+  bio: string;
+  contact: string;
+  course_module: string;
+}
 
 export function Cadaster() {
   const [loading, setLoading] = useState(false);
@@ -15,11 +24,11 @@ export function Cadaster() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<iUserCadaster>({
     resolver: yupResolver(cadasterSchema),
   });
 
-  async function onSubmitFunction(data) {
+  async function onSubmitFunction(data: iUserCadaster) {
     userCadaster(data, setLoading);
   }
 
