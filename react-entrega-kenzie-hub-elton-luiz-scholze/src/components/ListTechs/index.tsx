@@ -1,10 +1,15 @@
-import { useContext } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
-import { TechContext } from "../../contexts/TechContext";
+import { useTechContext } from "../../contexts/TechContext";
 import { List } from "./style";
 
-export function ListTechs({ title, status, id }) {
-  const { deleteTechs } = useContext(TechContext);
+interface iListTechsProps {
+  title: string;
+  status: string;
+  id: string;
+}
+
+export function ListTechs({ title, status, id } : iListTechsProps) {
+  const {deleteTechs} = useTechContext();
 
   return (
     <List>
