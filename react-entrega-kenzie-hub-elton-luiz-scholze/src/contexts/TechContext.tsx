@@ -28,14 +28,14 @@ interface iTechContext {
   setLoading: Dispatch<SetStateAction<boolean>>;
   createTechs: (dataTech: iTechRegister) => void;
   deleteTechs: (id: string) => void;
-  techs: [iTechs];
+  techs: iTechs[];
   setTechs: Dispatch<SetStateAction<iTechs[]>>;
 }
 
 export const TechContext = createContext<iTechContext>({} as iTechContext);
 
 export function TechProvider({ children }: iTechContextProps) {
-  const [techs, setTechs] = useState<[iTechs]>([]);
+  const [techs, setTechs] = useState<iTechs[]>([]);
   const [addModal, setAddModal] = useState(false);
   const [loading, setLoading] = useState(false);
 
