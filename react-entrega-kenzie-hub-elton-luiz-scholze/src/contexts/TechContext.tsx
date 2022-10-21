@@ -7,8 +7,11 @@ import {
   SetStateAction,
 } from "react";
 import { toast } from "react-toastify";
-import { iTechRegister } from "../components/Modal";
-import { RequestCreateTechs } from "../requests/RequestCreateTechs";
+import { iTech } from "../components/Modal";
+import {
+  iTechRegister,
+  RequestCreateTechs,
+} from "../requests/RequestCreateTechs";
 import { RequestDeleteTechs } from "../requests/RequestDeleteTechs";
 
 interface iTechs {
@@ -26,16 +29,16 @@ interface iTechContext {
   setAddModal: Dispatch<SetStateAction<boolean>>;
   loading: boolean;
   setLoading: Dispatch<SetStateAction<boolean>>;
-  createTechs: (dataTech: iTechRegister) => void;
+  createTechs: (dataTech: iTech) => void;
   deleteTechs: (id: string) => void;
-  techs: iTechs[];
-  setTechs: Dispatch<SetStateAction<iTechs[]>>;
+  techs: iTech[];
+  setTechs: Dispatch<SetStateAction<iTech[]>>;
 }
 
 export const TechContext = createContext<iTechContext>({} as iTechContext);
 
 export function TechProvider({ children }: iTechContextProps) {
-  const [techs, setTechs] = useState<iTechs[]>([]);
+  const [techs, setTechs] = useState<iTech[]>([]);
   const [addModal, setAddModal] = useState(false);
   const [loading, setLoading] = useState(false);
 

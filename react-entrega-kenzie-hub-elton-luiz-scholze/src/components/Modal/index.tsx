@@ -6,10 +6,9 @@ import { cadasterTechsSchema } from "./cadasterTechsSchema";
 import { useTechContext } from "../../contexts/TechContext";
 import { ModalStyle } from "./style";
 
-export interface iTechRegister {
+export interface iTech {
   title: string;
   status: string;
-  id: string;
 }
 
 export function Modal() {
@@ -18,7 +17,7 @@ export function Modal() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<iTechRegister>({
+  } = useForm<iTech>({
     resolver: yupResolver(cadasterTechsSchema),
   });
 
@@ -26,7 +25,7 @@ export function Modal() {
     setAddModal(false);
   }
 
-  async function onSubmitFunction(dataTech: iTechRegister) {
+  async function onSubmitFunction(dataTech: iTech) {
     createTechs(dataTech);
   }
 

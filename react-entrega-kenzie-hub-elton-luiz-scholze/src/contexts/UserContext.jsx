@@ -20,7 +20,7 @@ import { TechContext, useTechContext } from "./TechContext";
 //     course_module: string;
 //     bio: string;
 //     contact: string;
-//     techs: iTechRegister;
+//     techs: iTechRegister[];
 //   };
 // }
 
