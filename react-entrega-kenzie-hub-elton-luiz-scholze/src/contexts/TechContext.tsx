@@ -65,8 +65,8 @@ export function TechProvider({ children }: iTechContextProps) {
     if (token) {
       try {
         setLoading(true);
-        const data = RequestDeleteTechs(token, id);
-        setTechs((await data).user);
+        const data = await RequestDeleteTechs(token, id);
+        setTechs(data.user);
         toast.success("Tecnologia deletada com sucesso!");
       } catch {
         toast.error("Ops, algo deu errado!");

@@ -6,16 +6,12 @@ export type iTechRegister = Omit<iTech, "id">;
 export async function RequestCreateTechs(
   token: string,
   dataTech: iTechRegister
-): Promise<iTechRegister> {
-  const { data } = await RequestApi.post<iTechRegister>(
-    "users/techs",
-    dataTech,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+): Promise<iTech> {
+  const { data } = await RequestApi.post<iTech>("users/techs", dataTech, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   return data;
 }
