@@ -6,16 +6,7 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Nav } from "../../styles/Nav";
 import logo from "../../assets/Logo.svg";
-
-interface iUserCadaster {
-  name: string;
-  email: string;
-  password: string;
-  passwordConfirm: string;
-  bio: string;
-  contact: string;
-  course_module: string;
-}
+import { iUserCadaster } from "../../requests/RequestUserCadaster";
 
 export function Cadaster() {
   const [loading, setLoading] = useState(false);
