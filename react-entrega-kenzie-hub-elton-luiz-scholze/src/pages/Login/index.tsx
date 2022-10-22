@@ -3,24 +3,25 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Container, Forms } from "../../styles/Forms";
 import { loginSchema } from "./loginSchema";
 import { Link } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import logo from "../../assets/Logo.svg";
 import "react-toastify/dist/ReactToastify.css";
-import { UserContext } from "../../contexts/UserContext";
+import { useUserContext } from "../../contexts/UserContext";
+import { iUserLogin } from "../../requests/RequestUserLogin";
 
 export function Login() {
-  const [loading, setLoading] = useState(false);
-  const { userLogin } = useContext(UserContext);
+  const [loading] = useState(false);
+  const { userLogin } = useUserContext();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<iUserLogin>({
     resolver: yupResolver(loginSchema),
   });
 
-  async function onSubmitFunction(data) {
-    userLogin(data, setLoading);
+  async function onSubmitFunction(data: iUserLogin) {
+    userLogin(data);
   }
 
   return (

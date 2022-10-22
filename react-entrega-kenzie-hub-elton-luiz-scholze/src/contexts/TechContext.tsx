@@ -8,13 +8,15 @@ import {
 } from "react";
 import { toast } from "react-toastify";
 import { iTech } from "../components/Modal";
+import { RequestApi } from "../requests/RequestApi";
 import {
   iTechRegister,
   RequestCreateTechs,
 } from "../requests/RequestCreateTechs";
 import { RequestDeleteTechs } from "../requests/RequestDeleteTechs";
+import { iUserLoginResponse } from "../requests/RequestUserLogin";
 
-interface iTechs {
+export interface iTechs {
   id: string;
   title: string;
   status: string;
@@ -65,8 +67,13 @@ export function TechProvider({ children }: iTechContextProps) {
     if (token) {
       try {
         setLoading(true);
-        const data = await RequestDeleteTechs(token, id);
-        setTechs(data.user);
+        await RequestDeleteTechs(token, id);
+        const { data } = await RequestApi.get<iUserLoginResponse>("profile", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setTechs([data]);
         toast.success("Tecnologia deletada com sucesso!");
       } catch {
         toast.error("Ops, algo deu errado!");

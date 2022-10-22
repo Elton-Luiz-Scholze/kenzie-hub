@@ -2,15 +2,14 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Container, Forms } from "../../styles/Forms";
 import { cadasterSchema } from "./cadasterSchema";
-import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { Nav } from "../../styles/Nav";
 import logo from "../../assets/Logo.svg";
 import { iUserCadaster } from "../../requests/RequestUserCadaster";
+import { useUserContext } from "../../contexts/UserContext";
 
 export function Cadaster() {
-  const [loading, setLoading] = useState(false);
-  const { userCadaster } = useContext(UserContext);
+  const { userCadaster, loading } = useUserContext();
   const {
     register,
     handleSubmit,
@@ -20,7 +19,7 @@ export function Cadaster() {
   });
 
   async function onSubmitFunction(data: iUserCadaster) {
-    userCadaster(data, setLoading);
+    userCadaster(data);
   }
 
   return (
