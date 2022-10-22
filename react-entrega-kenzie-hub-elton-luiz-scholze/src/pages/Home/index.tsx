@@ -1,18 +1,18 @@
 import { IoMdAdd } from "react-icons/io";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
-import { UserContext } from "../../contexts/UserContext";
+import { useUserContext } from "../../contexts/UserContext";
 import logo from "../../assets/Logo.svg";
 import { Nav } from "../../styles/Nav";
 import { Header, Main } from "./style";
 import { ListTechs } from "../../components/ListTechs";
 import { Modal } from "../../components/Modal";
-import { TechContext } from "../../contexts/TechContext";
+import { TechContext, useTechContext } from "../../contexts/TechContext";
 
 export function Home() {
-  const { user, techs, logout } = useContext(UserContext);
+  const { user, logout } = useUserContext();
+  const { techs } = useTechContext();
   const { addModal, setAddModal } = useContext(TechContext);
-  const {name, course_module} = user;
 
   function showModal() {
     setAddModal(true);
@@ -28,8 +28,12 @@ export function Home() {
       </Nav>
       <Header>
         <div>
-          <h2>Olá, {name}</h2>
-          <p>{course_module}</p>
+          {user?.map(({ name, course_module }) => (
+            <>
+              <h2>Olá, {name}</h2>
+              <p>{course_module}</p>
+            </>
+          ))}
         </div>
       </Header>
       <Main>
