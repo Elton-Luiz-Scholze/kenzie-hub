@@ -8,13 +8,13 @@ import {
 } from "react";
 import { toast } from "react-toastify";
 import { iTech } from "../components/Modal";
-import { RequestApi } from "../requests/RequestApi";
+// import { RequestApi } from "../requests/RequestApi";
 import {
   iTechRegister,
   RequestCreateTechs,
 } from "../requests/RequestCreateTechs";
 import { RequestDeleteTechs } from "../requests/RequestDeleteTechs";
-import { iUserLoginResponse } from "../requests/RequestUserLogin";
+// import { iUserLoginResponse } from "../requests/RequestUserLogin";
 
 export interface iTechs {
   id: string;
@@ -33,14 +33,14 @@ interface iTechContext {
   setLoading: Dispatch<SetStateAction<boolean>>;
   createTechs: (dataTech: iTech) => void;
   deleteTechs: (id: string) => void;
-  techs: iTech[];
-  setTechs: Dispatch<SetStateAction<iTech[]>>;
+  techs: iTechs[];
+  setTechs: Dispatch<SetStateAction<iTechs[]>>;
 }
 
 export const TechContext = createContext<iTechContext>({} as iTechContext);
 
 export function TechProvider({ children }: iTechContextProps) {
-  const [techs, setTechs] = useState<iTech[]>([]);
+  const [techs, setTechs] = useState<iTechs[]>([]);
   const [addModal, setAddModal] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -64,16 +64,17 @@ export function TechProvider({ children }: iTechContextProps) {
 
   async function deleteTechs(id: string) {
     const token = localStorage.getItem("@kenzieHubToken");
+    const techsFiltered = techs.filter((tech) => tech.id !== id);
     if (token) {
       try {
         setLoading(true);
         await RequestDeleteTechs(token, id);
-        const { data } = await RequestApi.get<iUserLoginResponse>("profile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setTechs([data]);
+        // const response = await RequestApi.get<iUserLoginResponse>("profile", {
+        //   headers: {
+        //     Authorization: `Bearer ${token}`,
+        //   },
+        // });
+        setTechs(techsFiltered);
         toast.success("Tecnologia deletada com sucesso!");
       } catch {
         toast.error("Ops, algo deu errado!");
