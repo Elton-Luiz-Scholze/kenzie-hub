@@ -23,9 +23,8 @@ export function Home() {
       setTechs(response.data.techs);
     }
     userData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log(user);
 
   function showModal() {
     setAddModal(true);

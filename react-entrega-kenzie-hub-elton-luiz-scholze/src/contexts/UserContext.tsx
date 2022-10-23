@@ -58,6 +58,7 @@ export function UserProvider({ children }: iUserContextProps) {
       }
     }
     autoLogin();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function userCadaster(dataUser: iUserCadaster) {
@@ -79,7 +80,6 @@ export function UserProvider({ children }: iUserContextProps) {
       const data = await RequestUserLogin(dataUser);
       localStorage.setItem("@kenzieHubToken", data.token);
       setUser(data);
-      console.log(user);
       toast.success("Login realizado com sucesso!");
       navigate("/home");
     } catch {
