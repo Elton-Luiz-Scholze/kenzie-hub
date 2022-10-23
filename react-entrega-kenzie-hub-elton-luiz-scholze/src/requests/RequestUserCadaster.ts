@@ -23,10 +23,7 @@ interface iUserResponse {
 export async function RequestUserCadaster(
   dataUser: iUserCadaster
 ): Promise<iUserResponse> {
-  const { data } = await RequestApi.post<iUserResponse>(
-    "users/techs",
-    dataUser
-  );
+  const { data } = await RequestApi.post<iUserResponse>("users", dataUser);
 
   return data;
 }

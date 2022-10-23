@@ -1,5 +1,5 @@
 import { IoMdAdd } from "react-icons/io";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useUserContext } from "../../contexts/UserContext";
 import logo from "../../assets/Logo.svg";
@@ -8,11 +8,24 @@ import { Header, Main } from "./style";
 import { ListTechs } from "../../components/ListTechs";
 import { Modal } from "../../components/Modal";
 import { TechContext, useTechContext } from "../../contexts/TechContext";
+import { RequestApi } from "../../requests/RequestApi";
 
 export function Home() {
   const { user, logout } = useUserContext();
-  const { techs } = useTechContext();
+  const { techs, setTechs } = useTechContext();
   const { addModal, setAddModal } = useContext(TechContext);
+
+  useEffect(() => {
+    const id = user?.user.id;
+
+    async function userData() {
+      const response = await RequestApi.get(`users/${id}`);
+      setTechs(response.data.techs);
+    }
+    userData();
+  }, []);
+
+  console.log(user);
 
   function showModal() {
     setAddModal(true);
@@ -28,12 +41,8 @@ export function Home() {
       </Nav>
       <Header>
         <div>
-          {user?.map(({ name, course_module }) => (
-            <>
-              <h2>Olá, {name}</h2>
-              <p>{course_module}</p>
-            </>
-          ))}
+          <h2>Olá, {user?.user.name}</h2>
+          <p>{user?.user.course_module}</p>
         </div>
       </Header>
       <Main>
@@ -45,7 +54,7 @@ export function Home() {
         </div>
 
         <ul>
-          {techs.length > 0 ? (
+          {techs && techs.length > 0 ? (
             techs.map((tech) => (
               <ListTechs
                 key={tech.id}

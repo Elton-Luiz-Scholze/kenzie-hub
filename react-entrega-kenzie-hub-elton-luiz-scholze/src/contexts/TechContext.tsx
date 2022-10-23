@@ -8,13 +8,11 @@ import {
 } from "react";
 import { toast } from "react-toastify";
 import { iTech } from "../components/Modal";
-// import { RequestApi } from "../requests/RequestApi";
 import {
   iTechRegister,
   RequestCreateTechs,
 } from "../requests/RequestCreateTechs";
 import { RequestDeleteTechs } from "../requests/RequestDeleteTechs";
-// import { iUserLoginResponse } from "../requests/RequestUserLogin";
 
 export interface iTechs {
   id: string;
@@ -64,17 +62,12 @@ export function TechProvider({ children }: iTechContextProps) {
 
   async function deleteTechs(id: string) {
     const token = localStorage.getItem("@kenzieHubToken");
-    const techsFiltered = techs.filter((tech) => tech.id !== id);
+    const techsFiltered = techs?.filter((tech) => tech.id !== id);
     if (token) {
       try {
         setLoading(true);
         await RequestDeleteTechs(token, id);
-        // const response = await RequestApi.get<iUserLoginResponse>("profile", {
-        //   headers: {
-        //     Authorization: `Bearer ${token}`,
-        //   },
-        // });
-        setTechs(techsFiltered);
+        techsFiltered && setTechs(techsFiltered);
         toast.success("Tecnologia deletada com sucesso!");
       } catch {
         toast.error("Ops, algo deu errado!");

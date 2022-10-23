@@ -10,7 +10,6 @@ import {
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { RequestUserCadaster } from "../requests/RequestUserCadaster";
-import { useTechContext } from "./TechContext";
 import { iUserCadaster } from "../requests/RequestUserCadaster";
 import {
   iUserLogin,
@@ -24,8 +23,8 @@ interface iUserContextProps {
 }
 
 interface iUserContext {
-  user: iUserLoginResponse[] | null;
-  setUser: Dispatch<SetStateAction<iUserLoginResponse[] | null>>;
+  user: iUserLoginResponse | null;
+  setUser: Dispatch<SetStateAction<iUserLoginResponse | null>>;
   currentRoute: null | string;
   setCurrentRoute: Dispatch<SetStateAction<null | string>>;
   loading: boolean;
@@ -38,21 +37,18 @@ interface iUserContext {
 export const UserContext = createContext({} as iUserContext);
 
 export function UserProvider({ children }: iUserContextProps) {
-  const { addModal, setTechs } = useTechContext();
-  const [user, setUser] = useState<iUserLoginResponse[] | null>(null);
+  const [user, setUser] = useState<iUserLoginResponse | null>(null);
   const [currentRoute, setCurrentRoute] = useState<null | string>(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const token = localStorage.getItem("@kenzieHubToken");
 
   useEffect(() => {
     async function autoLogin() {
-      const token = localStorage.getItem("@kenzieHubToken");
-
       if (token) {
         try {
-          const data = await RequestUserAutoLogin(token);
-          setUser([data]);
-          setTechs(data.techs);
+          const data = await RequestUserAutoLogin();
+          setUser(data);
           navigate("/home");
         } catch {
           localStorage.removeItem("@kenzieHubToken");
@@ -62,7 +58,7 @@ export function UserProvider({ children }: iUserContextProps) {
       }
     }
     autoLogin();
-  }, [addModal]);
+  }, []);
 
   async function userCadaster(dataUser: iUserCadaster) {
     try {
@@ -82,12 +78,11 @@ export function UserProvider({ children }: iUserContextProps) {
       setLoading(true);
       const data = await RequestUserLogin(dataUser);
       localStorage.setItem("@kenzieHubToken", data.token);
-      console.log(data);
-      setUser([data]);
-      setTechs(data.techs);
+      setUser(data);
+      console.log(user);
       toast.success("Login realizado com sucesso!");
       navigate("/home");
-    } catch (error) {
+    } catch {
       toast.error("Email ou senha incorretos!!!");
     } finally {
       setLoading(false);
