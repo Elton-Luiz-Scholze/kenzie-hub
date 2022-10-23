@@ -1,5 +1,6 @@
 import { iTechs } from "../contexts/TechContext";
 import { RequestApi } from "./RequestApi";
+// import { RequestApi } from "./RequestApi";
 
 export interface iUserLogin {
   email: string;
@@ -7,14 +8,16 @@ export interface iUserLogin {
 }
 
 export interface iUserLoginResponse {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    course_module: string;
+    bio: string;
+    contact: string;
+    techs: iTechs[];
+  };
   token: string;
-  id: string;
-  name: string;
-  email: string;
-  course_module: string;
-  bio: string;
-  contact: string;
-  techs: iTechs[];
 }
 
 export async function RequestUserLogin(
@@ -24,6 +27,5 @@ export async function RequestUserLogin(
     "sessions",
     dataUser
   );
-
   return data;
 }
