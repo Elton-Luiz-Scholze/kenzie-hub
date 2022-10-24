@@ -1,6 +1,15 @@
 import { iTechs } from "../contexts/TechContext";
 import { RequestApi } from "./RequestApi";
-// import { RequestApi } from "./RequestApi";
+
+export interface iUser {
+  id: string;
+  name: string;
+  email: string;
+  course_module: string;
+  bio: string;
+  contact: string;
+  techs: iTechs[];
+}
 
 export interface iUserLogin {
   email: string;
