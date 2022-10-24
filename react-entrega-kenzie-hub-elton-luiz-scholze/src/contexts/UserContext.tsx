@@ -12,8 +12,8 @@ import { toast } from "react-toastify";
 import { RequestUserCadaster } from "../requests/RequestUserCadaster";
 import { iUserCadaster } from "../requests/RequestUserCadaster";
 import {
+  iUser,
   iUserLogin,
-  iUserLoginResponse,
   RequestUserLogin,
 } from "../requests/RequestUserLogin";
 import { RequestUserAutoLogin } from "../requests/RequestUserAutoLogin";
@@ -23,8 +23,8 @@ interface iUserContextProps {
 }
 
 interface iUserContext {
-  user: iUserLoginResponse | null;
-  setUser: Dispatch<SetStateAction<iUserLoginResponse | null>>;
+  user: iUser | null;
+  setUser: Dispatch<SetStateAction<iUser | null>>;
   currentRoute: null | string;
   setCurrentRoute: Dispatch<SetStateAction<null | string>>;
   loading: boolean;
@@ -37,17 +37,18 @@ interface iUserContext {
 export const UserContext = createContext({} as iUserContext);
 
 export function UserProvider({ children }: iUserContextProps) {
-  const [user, setUser] = useState<iUserLoginResponse | null>(null);
+  const [user, setUser] = useState<iUser | null>(null);
   const [currentRoute, setCurrentRoute] = useState<null | string>(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const token = localStorage.getItem("@kenzieHubToken");
 
   useEffect(() => {
     async function autoLogin() {
+      const token = localStorage.getItem("@kenzieHubToken");
+
       if (token) {
         try {
-          const data = await RequestUserAutoLogin();
+          const data = await RequestUserAutoLogin(token);
           setUser(data);
           navigate("/home");
         } catch {
@@ -79,7 +80,7 @@ export function UserProvider({ children }: iUserContextProps) {
       setLoading(true);
       const data = await RequestUserLogin(dataUser);
       localStorage.setItem("@kenzieHubToken", data.token);
-      setUser(data);
+      setUser(data.user);
       toast.success("Login realizado com sucesso!");
       navigate("/home");
     } catch {

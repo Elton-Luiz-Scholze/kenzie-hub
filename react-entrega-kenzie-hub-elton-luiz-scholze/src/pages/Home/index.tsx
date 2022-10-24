@@ -16,7 +16,7 @@ export function Home() {
   const { addModal, setAddModal } = useContext(TechContext);
 
   useEffect(() => {
-    const id = user?.user.id;
+    const id = user?.id;
 
     async function userData() {
       const response = await RequestApi.get(`users/${id}`);
@@ -40,8 +40,8 @@ export function Home() {
       </Nav>
       <Header>
         <div>
-          <h2>Olá, {user?.user.name}</h2>
-          <p>{user?.user.course_module}</p>
+          <h2>Olá, {user?.name}</h2>
+          <p>{user?.course_module}</p>
         </div>
       </Header>
       <Main>
