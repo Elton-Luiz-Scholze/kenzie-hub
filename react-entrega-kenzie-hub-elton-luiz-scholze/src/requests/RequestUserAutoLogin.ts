@@ -1,9 +1,8 @@
 import { RequestApi } from "./RequestApi";
-import { iUserLoginResponse } from "./RequestUserLogin";
+import { iUser } from "./RequestUserLogin";
 
-export async function RequestUserAutoLogin(): Promise<iUserLoginResponse> {
-  const token = localStorage.getItem("@kenzieHubToken");
-  const { data } = await RequestApi.post<iUserLoginResponse>("profile", {
+export async function RequestUserAutoLogin(token: string): Promise<iUser> {
+  const { data } = await RequestApi.get<iUser>("profile", {
     headers: {
       Authorization: `Bearer ${token}`,
     },
